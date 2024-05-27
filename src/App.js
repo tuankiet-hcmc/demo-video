@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from "react";
+import "./App.css";
 
-function App() {
+export default function App() {
+  const ref = React.useRef(null);
+
+  useEffect(() => {
+    if (ref.current) {
+      navigator.mediaDevices
+      .getUserMedia({ video: true })
+      .then((stream) => {
+        ref.current.srcObject = stream;
+        ref.current.play();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    }
+  }, [ref]);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <video
+        ref={ref}
+        width="300"
+      ></video>
     </div>
   );
 }
-
-export default App;
