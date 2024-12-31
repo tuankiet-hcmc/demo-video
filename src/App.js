@@ -20,6 +20,8 @@ export default function App() {
   return (
     <div className="App">
       <video
+        playsInline
+        controls
         ref={ref}
         width="300"
       ></video>
